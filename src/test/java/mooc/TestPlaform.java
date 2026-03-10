@@ -1,7 +1,12 @@
 package mooc;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,8 +26,9 @@ public class TestPlaform {
 	public void setUp() {
 		platform = new Platform();
 		bastide = new Person("Rémi Bastide");
-		histoire = new Course("Histoire", 15);
-		geo = new Course("Géographie", 20);
+		List<Book> emptyList = new ArrayList<>();
+		histoire = new Course("Histoire", 15, emptyList);
+		geo = new Course("Géographie", 20, emptyList);
 		platform.addCourse(histoire);
 		platform.addCourse(geo);
 		platform.registerStudent(bastide);
@@ -129,7 +135,8 @@ public class TestPlaform {
 	 */
 	@Test
 	public void testCheckCourse() {
-		Course unknown = new Course("Bidon", 20);
+		List<Book> emptyList = new ArrayList<>();
+		Course unknown = new Course("Bidon", 20, emptyList);
 		try {
 			platform.enroll(bastide, unknown);
 			fail("Il faut un cours dispensé par l'université");
